@@ -2,7 +2,6 @@ package com.liaocc.demo.po;
 
 import org.apache.ibatis.annotations.Many;
 
-import javax.persistence.Id;
 import java.util.List;
 
 public class User {

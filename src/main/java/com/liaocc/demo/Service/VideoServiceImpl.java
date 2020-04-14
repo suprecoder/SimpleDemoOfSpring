@@ -8,6 +8,9 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class VideoServiceImpl implements VideoService {
     @Autowired
@@ -22,11 +25,15 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public InputStream getVideobyId(int id) {
+    public Map<String,Object> getVideobyId(int id) {
         try{
             InputStream is=videoDao.getvideobyid(id);
             MultipartFile file = new MockMultipartFile("avatar","avatar","video/mp4",is);
-            return file.getInputStream();
+            System.out.println(file.getSize());
+            Map<String,Object> ans=new HashMap<>();
+            ans.put("VideoStream",file.getInputStream());
+            ans.put("size",file.getSize());
+            return ans;
         }catch (Exception e){
             e.printStackTrace();
             return null;
